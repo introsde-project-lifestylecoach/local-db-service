@@ -57,11 +57,11 @@ public class Goal implements Serializable
     
     
     // add below all the getters and setters of all the private attributes   
-    public int getIdMeasure() {
+    public int getIdGoal() {
 		return idGoal;
 	}
 
-	public void setIdMeasure(int id) {
+	public void setIdGoal(int id) {
 		this.idGoal = id;
 	}
 
@@ -174,6 +174,21 @@ public class Goal implements Serializable
 		
 		List<Goal> goal = em.createQuery(query, Goal.class).getResultList();
 		
+		LifeCoachDao.instance.closeConnections(em);
+		return goal;
+	}
+    
+    public static List<Goal> getGoalByGidAndType(int pId, int gId, String type)
+	{
+		EntityManager em = LifeCoachDao.instance.createEntityManager();
+		
+		String query = "SELECT g FROM Goal g WHERE g.person.idPerson = " + pId + " AND g.idGoal = " + gId
+				+ " AND g.measureType.idMeasureType = (SELECT mT.idMeasureType FROM MeasureType mT WHERE mT.type = \"" + type + "\")";
+				
+		// System.out.println(query);
+		
+		List<Goal> goal = em.createQuery(query, Goal.class).getResultList();
+
 		LifeCoachDao.instance.closeConnections(em);
 		return goal;
 	}

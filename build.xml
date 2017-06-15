@@ -91,8 +91,8 @@
     	
     	<!-- Target runs the endpoint. Publishes the service -->
         <target name="start" depends="install">
-            <echo message="app start introsde.assignment.soap.endpoint.PeoplePublisher in ${build.dir}" />
-            <java classname="introsde.assignment.soap.endpoint.PeoplePublisher" classpath="${build.dir}" fork="true">
+            <echo message="app start lifecoach.localdb.endpoint.PeoplePublisher in ${build.dir}" />
+            <java classname="lifecoach.localdb.endpoint.PeoplePublisher" classpath="${build.dir}" fork="true">
                 <arg value="$JAVA_OPTS  -cp" />
                 <classpath>
                     <path location="build" />

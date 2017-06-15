@@ -3,6 +3,8 @@ package lifecoach.localdb.webservice;
 import lifecoach.localdb.model.Person;
 import lifecoach.localdb.model.Measure;
 import lifecoach.localdb.model.MeasureType;
+import lifecoach.localdb.model.Goal;
+import lifecoach.localdb.model.GoalType;
 
 import java.util.List;
 
@@ -158,5 +160,99 @@ public class PeopleImplementation implements People
     public List<MeasureType> getMeasureType() {
     	System.out.println("Read MeasureType List");
         return MeasureType.getAll();
+    }
+    
+    
+    /* Manage Goal */
+    
+    @Override
+    public Goal readGoal(int pId, String measureType, int gId) {
+        System.out.println("Reading Goal by pId = " + pId + ", mId = " + gId + ", type = " + measureType);
+        List<Goal> p = Goal.getGoalByGidAndType(pId, gId, measureType);
+        if (p!=null) {
+            System.out.println("---> Found Goal");
+            for(Goal m : p)
+            {
+            	System.out.println(m.getIdGoal() + " " + m.getValue());
+            }	
+        } else {
+            System.out.println("---> Didn't find any Goal");
+        }
+        return p.get(0);
+    }
+
+    @Override
+    public List<Goal> getGoal(int pId, String measureType) {
+    	System.out.println("Reading Goal by pId = " + pId + ", type = " + measureType);
+        List<Goal> p = Goal.getGoalByPidAndType(pId, measureType);
+        if (p!=null) {
+            System.out.println("---> Found Goal");
+            for(Goal m : p)
+            {
+            	System.out.println(m.getIdGoal() + " " + m.getValue());
+            }
+        } else {
+            System.out.println("---> Didn't find any Goal");
+        }
+        return p;
+    }
+
+    @Override
+    public int addGoal(int pId, Goal goal) {
+    	System.out.println("Save Goal with id = " + goal.getIdGoal());
+        
+    	if(goal.getMeasureType()==null)
+    	{
+    		System.out.println("QUi");
+    	}
+    	else
+    	{
+    		System.out.println("QUa " + goal.getMeasureType().getType());
+    	}
+    	
+    	goal.setPerson(Person.getPersonById(pId));
+		Goal.saveGoal(goal);
+        return goal.getIdGoal();
+    }
+
+    @Override
+    public int updateGoal(int pId, Goal goal) {
+    	System.out.println("Update Goal with id = " + goal.getIdGoal());
+    	goal.setPerson(Person.getPersonById(pId));
+    	Goal.updateGoal(goal);
+    	return goal.getIdGoal();
+    }
+    
+    @Override
+    public int deleteGoal(int id) {
+    	System.out.println("Delete Goal with id = " + id);
+    	Goal p = Goal.getGoalById(id);
+        if (p!=null) {
+            Goal.removeGoal(p);
+            return 0;
+        } else {
+            return -1;
+        }
+    }
+    
+    
+    /* Manage GoalType */
+    
+    @Override
+    public GoalType readGoalType(int id) {
+        System.out.println("Reading GoalType by id = " + id);
+        GoalType m = GoalType.getGoalTypeById(id);
+        if (m!=null) {
+            System.out.println("---> Found GoalType by id = " + id + " => " + m.getType());
+        } else {
+            System.out.println("---> Didn't find any GoalType with  id = " + id);
+        }
+        return m;
+    }
+
+    @Override
+    public List<GoalType> getGoalType() {
+    	System.out.println("Read GoalType List");
+        return GoalType.getAll();
     }
 }

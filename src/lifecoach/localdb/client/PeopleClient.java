@@ -3,6 +3,8 @@ package lifecoach.localdb.client;
 import lifecoach.localdb.model.Person;
 import lifecoach.localdb.model.Measure;
 import lifecoach.localdb.model.MeasureType;
+import lifecoach.localdb.model.Goal;
+import lifecoach.localdb.model.GoalType;
 import lifecoach.localdb.webservice.People;
 
 import java.net.URL;
@@ -27,7 +29,7 @@ public class PeopleClient
         System.out.println("=================================================");
         
         
-        int i, j;
+        int i, j, x;
         
         /*  readPersonList() */
         System.out.println("1: List of perosn");
@@ -113,7 +115,7 @@ public class PeopleClient
         System.out.println("=================================================");
         
         /* readPersonHistory(Long id, String measureType) */
-        System.out.println("6: History");
+        System.out.println("6: Measure History");
         
         List<Measure> mH = people.getMeasure(1, "height");
         
@@ -171,6 +173,66 @@ public class PeopleClient
         System.out.println("\t--> After: " + m2.getIdMeasure() + " " + m2.getValue());
         
         System.out.println("=================================================");
+               
+        /* readGoalHistory(Long id, String measureType) */
+        System.out.println("11: Goal History");
+        
+        List<Goal> gH = people.getGoal(1, "height");
+        
+        for(Goal g: gH)
+        {
+        	System.out.println("\t--> " + g.getIdGoal() + " " + g.getValue());
+        }
+        
+        System.out.println("=================================================");
+        
+        /* readGoalTypes() */
+        System.out.println("12: List of GoalType");
+        
+        List<GoalType> gT = people.getGoalType();
+        
+        for(GoalType g: gT)
+        {
+        	System.out.println("\t--> " + g.getIdGoalType() + " " + g.getType());
+        }
+        
+        System.out.println("=================================================");
+        
+        /* readPersonGoal(Long id, String measureType, Long gid) */
+        System.out.println("13: Read goal");
+        
+        Goal g1 = people.readGoal(1, "height", 1);
+        System.out.println("\t--> " + g1.getIdGoal() + " " + g1.getValue());
+        
+        System.out.println("=================================================");
+        
+        /* savePersonGoal(Long id, Goal m) */
+        System.out.println("14: Create goal");
+        
+        Person p3 = people.readPerson(1);
+        i = people.addGoal(1, makeGoal((float) 1.85, "2011-12-09", p2, makeMeasureType(1, people), makeGoalType(1, people)));
+        
+        Goal g2 = people.readGoal(1, makeMeasureType(1, people).getType(), i);
+        System.out.println("\t--> " + g2.getIdGoal() + " " + g2.getValue());
+        
+        x = g2.getIdGoal();
+        
+        System.out.println("=================================================");
+        
+        /* updatePersonGoal(Long id, Measure m) */
+        System.out.println("15: Update goal");
+        
+        Goal g3 = people.readGoal(1, "height", 1);
+        System.out.println("\t--> Before: " + g3.getIdGoal() + " " + g3.getValue());
+        
+        g3.setValue((float) 1.81);
+        i = people.updateGoal(1, g3);
+        
+        g3 = people.readGoal(1, "height", i);
+        
+        System.out.println("\t--> After: " + g3.getIdGoal() + " " + g3.getValue());
+        
+        System.out.println("=================================================");
         
         // Restore the initial conditions
         p = people.readPerson(1);
@@ -181,6 +243,11 @@ public class PeopleClient
         i = people.updateMeasure(1, m2);
         
         people.deleteMeasure(j);
+        
+        g3.setValue((float) 1.83);
+        i = people.updateGoal(1, g3);
+        
+        people.deleteGoal(x);
     }
        
     public static Person makePerson(int id, String fname, String lname, String date)
@@ -207,20 +274,38 @@ public class PeopleClient
     	return m;
     }
     
-    public static Measure makeMeasure(int id, float value, String date, Person person, MeasureType mType)
-    {
-    	Measure m = new Measure();
-    	
-    	m.setIdMeasure(id);
-    	m.setValue(value);
-    	m.setDate(date);
-    	m.setMeasureType(mType);
-    	
-    	return m;
-    }
+//    public static Measure makeMeasure(int id, float value, String date, Person person, MeasureType mType)
+//    {
+//    	Measure m = new Measure();
+//    	
+//    	m.setIdMeasure(id);
+//    	m.setValue(value);
+//    	m.setDate(date);
+//    	m.setMeasureType(mType);
+//    	
+//    	return m;
+//    }
     
     public static MeasureType makeMeasureType(int id, People people)
     {    	
     	return people.readMeasureType(id);
+    }
+    
+    public static Goal makeGoal(float value, String date, Person person, MeasureType mType, GoalType gType)
+    {
+    	Goal m = new Goal();
+    	
+    	// m.setIdGoal(id);
+    	m.setValue(value);
+    	m.setDate(date);
+    	m.setMeasureType(mType);
+    	m.setGoalType(gType);
+    	
+    	return m;
+    }
+    
+    public static GoalType makeGoalType(int id, People people)
+    {    	
+    	return people.readGoalType(id);
     }
 }

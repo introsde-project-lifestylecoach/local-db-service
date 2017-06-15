@@ -3,6 +3,8 @@ package lifecoach.localdb.webservice;
 import lifecoach.localdb.model.Person;
 import lifecoach.localdb.model.Measure;
 import lifecoach.localdb.model.MeasureType;
+import lifecoach.localdb.model.Goal;
+import lifecoach.localdb.model.GoalType;
 
 import java.util.List;
 
@@ -71,5 +73,39 @@ public interface People
     
     @WebMethod(operationName="readMeasureType")
     @WebResult(name="measureType") 
-    public MeasureType readMeasureType(@WebParam(name="measureId") int id);
+    public MeasureType readMeasureType(@WebParam(name="goalId") int id);
+    
+    
+    /* Goal */
+    
+    @WebMethod(operationName="getGoalHistory")
+    @WebResult(name="goalList") 
+    public List<Goal> getGoal(@WebParam(name="personId") int pId, @WebParam(name="measureTypeId") String typeMeasure);
+    
+    @WebMethod(operationName="readGoal")
+    @WebResult(name="goal") 
+    public Goal readGoal(@WebParam(name="personId") int pId, @WebParam(name="measureTypeId") String typeMeasure, @WebParam(name="goalId") int gId);
+    
+    @WebMethod(operationName="createGoal")
+    @WebResult(name="goalId") 
+    public int addGoal(@WebParam(name="personId") int pId, @WebParam(name="goal", targetNamespace="http://webservice.localdb.lifecoach/") Goal goal);
+
+    @WebMethod(operationName="updateGoal")
+    @WebResult(name="goalId") 
+    public int updateGoal(@WebParam(name="personId") int pId, @WebParam(name="goal", targetNamespace="http://webservice.localdb.lifecoach/") Goal goal);
+    
+    @WebMethod(operationName="deleteGoal")
+    @WebResult(name="result") 
+    public int deleteGoal(@WebParam(name="goalId") int id);
+    
+    
+    /* GoalType */
+    
+    @WebMethod(operationName="getGoalTypeList")
+    @WebResult(name="goalTypeList") 
+    public List<GoalType> getGoalType();
+    
+    @WebMethod(operationName="readGoalType")
+    @WebResult(name="goalType") 
+    public GoalType readGoalType(@WebParam(name="goalId") int id);
 }
