@@ -86,6 +86,22 @@ public class PeopleImplementation implements People
         }
         return p.get(0);
     }
+    
+    @Override
+    public List<Measure> readLastMeasure(int pId) {
+    	System.out.println("Reading LastMeasure by pId = " + pId);
+        List<Measure> p = Measure.getLastMeasure(pId);
+        if (p!=null) {
+            System.out.println("---> Found Measure");
+            for(Measure m : p)
+            {
+            	System.out.println(m.getIdMeasure() + " " + m.getValue());
+            }
+        } else {
+            System.out.println("---> Didn't find any Measure");
+        }
+        return p;
+    }
 
     @Override
     public List<Measure> getMeasure(int pId, String measureType) {
