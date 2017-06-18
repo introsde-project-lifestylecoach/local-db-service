@@ -118,6 +118,22 @@ public class PeopleImplementation implements People
         }
         return p;
     }
+    
+    @Override
+    public List<Measure> getSomeMeasure(int pId, String measureType, int nMeasure) {
+    	System.out.println("Reading Measure by pId = " + pId + ", type = " + measureType + ", max = " + nMeasure);
+        List<Measure> p = Measure.getSomeMeasureByPidAndTypeOrdered(pId, measureType, nMeasure);
+        if (p!=null) {
+            System.out.println("---> Found Measure");
+            for(Measure m : p)
+            {
+            	System.out.println(m.getIdMeasure() + " " + m.getValue());
+            }
+        } else {
+            System.out.println("---> Didn't find any Measure");
+        }
+        return p;
+    }
 
     @Override
     public int addMeasure(int pId, Measure measure) {

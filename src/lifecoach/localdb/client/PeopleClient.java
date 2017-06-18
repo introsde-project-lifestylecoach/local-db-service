@@ -234,6 +234,18 @@ public class PeopleClient
         
         System.out.println("=================================================");
         
+        /* readPersonHistory(Long id, String measureType) */
+        System.out.println("16: Some Measure by Type in order Desv ");
+        
+        mH = people.getSomeMeasure(1, "height", 1);
+        
+        for(Measure m5: mH)
+        {
+        	System.out.println("\t--> " + m5.getIdMeasure() + " " + m5.getValue() + " " + m5.getDate());
+        }
+        
+        System.out.println("=================================================");
+        
         // Restore the initial conditions
         p = people.readPerson(1);
         p.setFirstname("Giorgio"); 

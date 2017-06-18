@@ -200,6 +200,20 @@ public class Measure implements Serializable
 		LifeCoachDao.instance.closeConnections(em);
 		return measure;
 	}
+    
+    public static List<Measure> getSomeMeasureByPidAndTypeOrdered(int pId, String type, int max) {
+		EntityManager em = LifeCoachDao.instance.createEntityManager();
+				
+		String query = "SELECT m FROM Measure m WHERE m.person.idPerson = " + pId 
+				+ " AND m.measureType.idMeasureType = (SELECT mT.idMeasureType FROM MeasureType mT WHERE mT.type = \"" + type + "\") ORDER BY m.date DESC LIMIT " + max;
+				
+		System.out.println(query);
+		
+		List<Measure> measure = em.createQuery(query, Measure.class).getResultList();
+		
+		LifeCoachDao.instance.closeConnections(em);
+		return measure;
+	}
 
 	public static List<Measure> getMeasureByMidAndType(int pId, int mId, String type)
 	{

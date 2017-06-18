@@ -48,6 +48,10 @@ public interface People
     @WebResult(name="measureList") 
     public List<Measure> getMeasure(@WebParam(name="personId") int pId, @WebParam(name="measureTypeId") String typeMeasure);
     
+    @WebMethod(operationName="getSomeMeasure")
+    @WebResult(name="measureList") 
+    public List<Measure> getSomeMeasure(@WebParam(name="personId") int pId, @WebParam(name="measureTypeId") String typeMeasure, @WebParam(name="nMeasure") int nMeasure);
+    
     @WebMethod(operationName="readLastMeasure")
     @WebResult(name="measureList") 
     public List<Measure> readLastMeasure(@WebParam(name="personId") int pId);
