@@ -106,7 +106,10 @@ public interface People
     @WebResult(name="result") 
     public int deleteGoal(@WebParam(name="goalId") int id);
     
-    
+    @WebMethod(operationName="getGoalByTitle")
+    @WebResult(name="goal") 
+    public Goal getGoalByTitle(@WebParam(name="title") String title);
+
     /* GoalType */
     
     @WebMethod(operationName="getGoalTypeList")

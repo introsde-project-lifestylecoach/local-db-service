@@ -31,6 +31,12 @@ public class Goal implements Serializable
     @Column(name="value")
     private float value;
     
+    @Column(name="title")
+    private String title;
+
+    @Column(name="description")
+    private String description;
+
     // TODO: Use type Date
     // @Temporal(TemporalType.DATE)
 	// @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
@@ -58,6 +64,22 @@ public class Goal implements Serializable
 
 	public void setIdGoal(int id) {
 		this.idGoal = id;
+	}
+
+	public void setTitle(String title){
+		this.title = title;	
+	}
+
+	public void setDescription(String description){
+		this.description = description;	
+	}
+
+	public String getTitle(){
+		return title;	
+	}
+
+	public String getDescription(){
+		return description;
 	}
 
 	public float getValue() {
@@ -187,5 +209,20 @@ public class Goal implements Serializable
 		PeopleDao.instance.closeConnections(em);
 		return goal;
 	}
+
+     public static List<Goal> getGoalByTitle(String title){
+
+		EntityManager em = PeopleDao.instance.createEntityManager();
+		
+		String query = "SELECT g FROM Goal g WHERE g.person.title = \"" + title + "\")";
+				
+		// System.out.println(query);
+		
+		List<Goal> goal = em.createQuery(query, Goal.class).getResultList();
+
+		PeopleDao.instance.closeConnections(em);
+		return goal;
+	}
+
     
 }

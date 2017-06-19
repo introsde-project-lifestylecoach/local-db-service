@@ -266,6 +266,18 @@ public class PeopleImplementation implements People
             return -1;
         }
     }
+
+    public Goal getGoalByTitle(String title){
+	System.out.println("Reading Goal by title = " + title);
+        Goal p = Goal.getGoalByTitle(title).get(0); //It should have only an element
+        if (p!=null) {
+            System.out.println("---> Found Goal");
+            System.out.println(p.getIdGoal() + " " + p.getValue());
+        } else {
+            System.out.println("---> Didn't find any Goal");
+        }
+        return p;
+    }
     
     
     /* Manage GoalType */
