@@ -1,18 +1,13 @@
 package lifecoach.localdb.model;
 
 import java.io.Serializable;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-import lifecoach.localdb.dao.LifeCoachDao;
+import lifecoach.localdb.dao.PeopleDao;
 import lifecoach.localdb.model.Person;
 import lifecoach.localdb.model.MeasureType;
 
@@ -106,7 +101,7 @@ public class Measure implements Serializable
 	
 	public static List<Measure> getLastMeasure(int id)
 	{
-		EntityManager em = LifeCoachDao.instance.createEntityManager();
+		EntityManager em = PeopleDao.instance.createEntityManager();
 
 		List<Measure> measure = null;
 		List<Measure> tmp = null;
@@ -136,59 +131,59 @@ public class Measure implements Serializable
 			}
 		}
 		
-		LifeCoachDao.instance.closeConnections(em);
+		PeopleDao.instance.closeConnections(em);
 		return measure;
 	}
 
 	// Database operations
 	public static Measure getMeasureById(int personId) {
-        EntityManager em = LifeCoachDao.instance.createEntityManager();
+        EntityManager em = PeopleDao.instance.createEntityManager();
         Measure p = em.find(Measure.class, personId);
-        LifeCoachDao.instance.closeConnections(em);
+        PeopleDao.instance.closeConnections(em);
         return p;
     }
 
 	public static List<Measure> getAll() {
-        EntityManager em = LifeCoachDao.instance.createEntityManager();
+        EntityManager em = PeopleDao.instance.createEntityManager();
         List<Measure> list = em.createNamedQuery("Measure.findAll", Measure.class)
             .getResultList();
-        LifeCoachDao.instance.closeConnections(em);
+        PeopleDao.instance.closeConnections(em);
         return list;
     }
 
     public static Measure saveMeasure(Measure p) {
-        EntityManager em = LifeCoachDao.instance.createEntityManager();
+        EntityManager em = PeopleDao.instance.createEntityManager();
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         em.persist(p);
         tx.commit();
-        LifeCoachDao.instance.closeConnections(em);
+        PeopleDao.instance.closeConnections(em);
         return p;
     } 
 
     public static Measure updateMeasure(Measure p) {
-        EntityManager em = LifeCoachDao.instance.createEntityManager(); 
+        EntityManager em = PeopleDao.instance.createEntityManager(); 
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         p=em.merge(p);
         tx.commit();
-        LifeCoachDao.instance.closeConnections(em);
+        PeopleDao.instance.closeConnections(em);
         return p;
     }
 
     public static void removeMeasure(Measure p) {
-        EntityManager em = LifeCoachDao.instance.createEntityManager();
+        EntityManager em = PeopleDao.instance.createEntityManager();
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         p=em.merge(p);
         em.remove(p);
         tx.commit();
-        LifeCoachDao.instance.closeConnections(em);
+        PeopleDao.instance.closeConnections(em);
     }
     
     // Special methods
     public static List<Measure> getMeasureByPidAndType(int pId, String type) {
-		EntityManager em = LifeCoachDao.instance.createEntityManager();
+		EntityManager em = PeopleDao.instance.createEntityManager();
 				
 		String query = "SELECT m FROM Measure m WHERE m.person.idPerson = " + pId 
 				+ " AND m.measureType.idMeasureType = (SELECT mT.idMeasureType FROM MeasureType mT WHERE mT.type = \"" + type + "\")";
@@ -197,27 +192,27 @@ public class Measure implements Serializable
 		
 		List<Measure> measure = em.createQuery(query, Measure.class).getResultList();
 		
-		LifeCoachDao.instance.closeConnections(em);
+		PeopleDao.instance.closeConnections(em);
 		return measure;
 	}
     
-    public static List<Measure> getSomeMeasureByPidAndTypeOrdered(int pId, String type, int max) {
-		EntityManager em = LifeCoachDao.instance.createEntityManager();
+    public static List<Measure> getSomeOrderedMeasureByPidAndType(int pId, String type, int nMeasure) {
+		EntityManager em = PeopleDao.instance.createEntityManager();
 				
 		String query = "SELECT m FROM Measure m WHERE m.person.idPerson = " + pId 
-				+ " AND m.measureType.idMeasureType = (SELECT mT.idMeasureType FROM MeasureType mT WHERE mT.type = \"" + type + "\") ORDER BY m.date DESC LIMIT " + max;
+				+ " AND m.measureType.idMeasureType = (SELECT mT.idMeasureType FROM MeasureType mT WHERE mT.type = \"" + type + "\") ORDER BY m.date DESC";
 				
-		System.out.println(query);
+		// System.out.println(query);
 		
-		List<Measure> measure = em.createQuery(query, Measure.class).getResultList();
+		List<Measure> measure = em.createQuery(query, Measure.class).setMaxResults(nMeasure).getResultList();
 		
-		LifeCoachDao.instance.closeConnections(em);
+		PeopleDao.instance.closeConnections(em);
 		return measure;
 	}
 
 	public static List<Measure> getMeasureByMidAndType(int pId, int mId, String type)
 	{
-		EntityManager em = LifeCoachDao.instance.createEntityManager();
+		EntityManager em = PeopleDao.instance.createEntityManager();
 		
 		String query = "SELECT m FROM Measure m WHERE m.person.idPerson = " + pId + " AND m.idMeasure = " + mId
 				+ " AND m.measureType.idMeasureType = (SELECT mT.idMeasureType FROM MeasureType mT WHERE mT.type = \"" + type + "\")";
@@ -226,7 +221,7 @@ public class Measure implements Serializable
 		
 		List<Measure> measure = em.createQuery(query, Measure.class).getResultList();
 
-		LifeCoachDao.instance.closeConnections(em);
+		PeopleDao.instance.closeConnections(em);
 		return measure;
 	}
     

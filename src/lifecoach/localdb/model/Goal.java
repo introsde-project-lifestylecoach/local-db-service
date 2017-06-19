@@ -1,18 +1,13 @@
 package lifecoach.localdb.model;
 
 import java.io.Serializable;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-import lifecoach.localdb.dao.LifeCoachDao;
+import lifecoach.localdb.dao.PeopleDao;
 import lifecoach.localdb.model.Person;
 import lifecoach.localdb.model.MeasureType;
 import lifecoach.localdb.model.GoalType;
@@ -119,53 +114,53 @@ public class Goal implements Serializable
 	
 	// Database operations
 	public static Goal getGoalById(int personId) {
-        EntityManager em = LifeCoachDao.instance.createEntityManager();
+        EntityManager em = PeopleDao.instance.createEntityManager();
         Goal p = em.find(Goal.class, personId);
-        LifeCoachDao.instance.closeConnections(em);
+        PeopleDao.instance.closeConnections(em);
         return p;
     }
 
 	public static List<Goal> getAll() {
-        EntityManager em = LifeCoachDao.instance.createEntityManager();
+        EntityManager em = PeopleDao.instance.createEntityManager();
         List<Goal> list = em.createNamedQuery("Goal.findAll", Goal.class)
             .getResultList();
-        LifeCoachDao.instance.closeConnections(em);
+        PeopleDao.instance.closeConnections(em);
         return list;
     }
 
     public static Goal saveGoal(Goal p) {
-        EntityManager em = LifeCoachDao.instance.createEntityManager();
+        EntityManager em = PeopleDao.instance.createEntityManager();
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         em.persist(p);
         tx.commit();
-        LifeCoachDao.instance.closeConnections(em);
+        PeopleDao.instance.closeConnections(em);
         return p;
     } 
 
     public static Goal updateGoal(Goal p) {
-        EntityManager em = LifeCoachDao.instance.createEntityManager(); 
+        EntityManager em = PeopleDao.instance.createEntityManager(); 
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         p=em.merge(p);
         tx.commit();
-        LifeCoachDao.instance.closeConnections(em);
+        PeopleDao.instance.closeConnections(em);
         return p;
     }
 
     public static void removeGoal(Goal p) {
-        EntityManager em = LifeCoachDao.instance.createEntityManager();
+        EntityManager em = PeopleDao.instance.createEntityManager();
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         p=em.merge(p);
         em.remove(p);
         tx.commit();
-        LifeCoachDao.instance.closeConnections(em);
+        PeopleDao.instance.closeConnections(em);
     }
     
     // Special methods
     public static List<Goal> getGoalByPidAndType(int pId, String type) {
-		EntityManager em = LifeCoachDao.instance.createEntityManager();
+		EntityManager em = PeopleDao.instance.createEntityManager();
 				
 		String query = "SELECT g FROM Goal g WHERE g.person.idPerson = " + pId 
 				+ " AND g.measureType.idMeasureType = (SELECT mT.idMeasureType FROM MeasureType mT WHERE mT.type = \"" + type + "\")";
@@ -174,13 +169,13 @@ public class Goal implements Serializable
 		
 		List<Goal> goal = em.createQuery(query, Goal.class).getResultList();
 		
-		LifeCoachDao.instance.closeConnections(em);
+		PeopleDao.instance.closeConnections(em);
 		return goal;
 	}
     
     public static List<Goal> getGoalByGidAndType(int pId, int gId, String type)
 	{
-		EntityManager em = LifeCoachDao.instance.createEntityManager();
+		EntityManager em = PeopleDao.instance.createEntityManager();
 		
 		String query = "SELECT g FROM Goal g WHERE g.person.idPerson = " + pId + " AND g.idGoal = " + gId
 				+ " AND g.measureType.idMeasureType = (SELECT mT.idMeasureType FROM MeasureType mT WHERE mT.type = \"" + type + "\")";
@@ -189,7 +184,7 @@ public class Goal implements Serializable
 		
 		List<Goal> goal = em.createQuery(query, Goal.class).getResultList();
 
-		LifeCoachDao.instance.closeConnections(em);
+		PeopleDao.instance.closeConnections(em);
 		return goal;
 	}
     

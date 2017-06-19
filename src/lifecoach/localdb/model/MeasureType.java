@@ -7,7 +7,7 @@ import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-import lifecoach.localdb.dao.LifeCoachDao;
+import lifecoach.localdb.dao.PeopleDao;
 import lifecoach.localdb.model.Measure;
 
 @Entity  // indicates that this class is an entity to persist in DB
@@ -61,48 +61,48 @@ public class MeasureType implements Serializable
 	
 	// Database operations
 	public static MeasureType getMeasureTypeById(int personId) {
-        EntityManager em = LifeCoachDao.instance.createEntityManager();
+        EntityManager em = PeopleDao.instance.createEntityManager();
         MeasureType p = em.find(MeasureType.class, personId);
-        LifeCoachDao.instance.closeConnections(em);
+        PeopleDao.instance.closeConnections(em);
         return p;
     }
 
 	public static List<MeasureType> getAll() {
-        EntityManager em = LifeCoachDao.instance.createEntityManager();
+        EntityManager em = PeopleDao.instance.createEntityManager();
         List<MeasureType> list = em.createNamedQuery("MeasureType.findAll", MeasureType.class)
             .getResultList();
-        LifeCoachDao.instance.closeConnections(em);
+        PeopleDao.instance.closeConnections(em);
         return list;
     }
 
     public static MeasureType saveMeasureType(MeasureType p) {
-        EntityManager em = LifeCoachDao.instance.createEntityManager();
+        EntityManager em = PeopleDao.instance.createEntityManager();
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         em.persist(p);
         tx.commit();
-        LifeCoachDao.instance.closeConnections(em);
+        PeopleDao.instance.closeConnections(em);
         return p;
     } 
 
     public static MeasureType updateMeasureType(MeasureType p) {
-        EntityManager em = LifeCoachDao.instance.createEntityManager(); 
+        EntityManager em = PeopleDao.instance.createEntityManager(); 
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         p=em.merge(p);
         tx.commit();
-        LifeCoachDao.instance.closeConnections(em);
+        PeopleDao.instance.closeConnections(em);
         return p;
     }
 
     public static void removeMeasureType(MeasureType p) {
-        EntityManager em = LifeCoachDao.instance.createEntityManager();
+        EntityManager em = PeopleDao.instance.createEntityManager();
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         p=em.merge(p);
         em.remove(p);
         tx.commit();
-        LifeCoachDao.instance.closeConnections(em);
+        PeopleDao.instance.closeConnections(em);
     }
     
 }

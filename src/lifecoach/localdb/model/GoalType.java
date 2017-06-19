@@ -7,7 +7,7 @@ import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-import lifecoach.localdb.dao.LifeCoachDao;
+import lifecoach.localdb.dao.PeopleDao;
 import lifecoach.localdb.model.Goal;
 
 @Entity  // indicates that this class is an entity to persist in DB
@@ -61,48 +61,48 @@ public class GoalType implements Serializable
 	
 	// Database operations
 	public static GoalType getGoalTypeById(int goalId) {
-        EntityManager em = LifeCoachDao.instance.createEntityManager();
+        EntityManager em = PeopleDao.instance.createEntityManager();
         GoalType p = em.find(GoalType.class, goalId);
-        LifeCoachDao.instance.closeConnections(em);
+        PeopleDao.instance.closeConnections(em);
         return p;
     }
 
 	public static List<GoalType> getAll() {
-        EntityManager em = LifeCoachDao.instance.createEntityManager();
+        EntityManager em = PeopleDao.instance.createEntityManager();
         List<GoalType> list = em.createNamedQuery("GoalType.findAll", GoalType.class)
             .getResultList();
-        LifeCoachDao.instance.closeConnections(em);
+        PeopleDao.instance.closeConnections(em);
         return list;
     }
 
     public static GoalType saveGoalType(GoalType p) {
-        EntityManager em = LifeCoachDao.instance.createEntityManager();
+        EntityManager em = PeopleDao.instance.createEntityManager();
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         em.persist(p);
         tx.commit();
-        LifeCoachDao.instance.closeConnections(em);
+        PeopleDao.instance.closeConnections(em);
         return p;
     } 
 
     public static GoalType updateGoalType(GoalType p) {
-        EntityManager em = LifeCoachDao.instance.createEntityManager(); 
+        EntityManager em = PeopleDao.instance.createEntityManager(); 
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         p=em.merge(p);
         tx.commit();
-        LifeCoachDao.instance.closeConnections(em);
+        PeopleDao.instance.closeConnections(em);
         return p;
     }
 
     public static void removeGoalType(GoalType p) {
-        EntityManager em = LifeCoachDao.instance.createEntityManager();
+        EntityManager em = PeopleDao.instance.createEntityManager();
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         p=em.merge(p);
         em.remove(p);
         tx.commit();
-        LifeCoachDao.instance.closeConnections(em);
+        PeopleDao.instance.closeConnections(em);
     }
     
 }

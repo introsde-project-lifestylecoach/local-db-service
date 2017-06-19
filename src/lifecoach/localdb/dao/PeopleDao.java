@@ -1,17 +1,15 @@
 package lifecoach.localdb.dao;
 
-import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
-public enum LifeCoachDao {
+public enum PeopleDao {
 	instance;
 	private EntityManagerFactory emf;
 	
-	private LifeCoachDao() {
+	private PeopleDao() {
 		if (emf!=null) {
 			emf.close();
 		}
@@ -34,6 +32,6 @@ public enum LifeCoachDao {
 		return emf;
 	}
 	
-	// add other database global access operations
+	// Add other database global access operations
 
 }

@@ -122,7 +122,7 @@ public class PeopleImplementation implements People
     @Override
     public List<Measure> getSomeMeasure(int pId, String measureType, int nMeasure) {
     	System.out.println("Reading Measure by pId = " + pId + ", type = " + measureType + ", max = " + nMeasure);
-        List<Measure> p = Measure.getSomeMeasureByPidAndTypeOrdered(pId, measureType, nMeasure);
+        List<Measure> p = Measure.getSomeOrderedMeasureByPidAndType(pId, measureType, nMeasure);
         if (p!=null) {
             System.out.println("---> Found Measure");
             for(Measure m : p)
@@ -287,4 +287,5 @@ public class PeopleImplementation implements People
     	System.out.println("Read GoalType List");
         return GoalType.getAll();
     }
+
 }
