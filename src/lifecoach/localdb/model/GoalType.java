@@ -48,6 +48,22 @@ public class GoalType implements Serializable
 
 	public void setType(String type) {
 		this.type = type;
+		
+		switch(type)
+		{
+			case "increase":
+				this.idGoalType = 1;
+				break;
+			case "decrease":
+				this.idGoalType = 2;
+				break;
+			case "daily":
+				this.idGoalType = 3;
+				break;
+			case "amount":
+				this.idGoalType = 4;
+				break;
+		}
 	}
 	
 	// Transient for JAXB to avoid and infinite loop on serialization

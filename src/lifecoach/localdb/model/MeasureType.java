@@ -48,6 +48,19 @@ public class MeasureType implements Serializable
 
 	public void setType(String type) {
 		this.type = type;
+		
+		switch(type)
+		{
+			case "height":
+				this.idMeasureType = 1;
+				break;
+			case "weight":
+				this.idMeasureType = 2;
+				break;
+			case "step":
+				this.idMeasureType = 3;
+				break;
+		}
 	}
 	
 	// Transient for JAXB to avoid and infinite loop on serialization
