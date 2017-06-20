@@ -85,16 +85,15 @@ public class MeasureType implements Serializable
 		EntityManager em = PeopleDao.instance.createEntityManager();
 		
 		String query = "SELECT m.idMeasureType FROM MeasureType m WHERE m.type = \"" + type	+ "\"";
-				
 		// System.out.println(query);
 		
-		List<MeasureType> measureType = em.createQuery(query, MeasureType.class).getResultList();
+		List<Integer> measureType = em.createQuery(query, Integer.class).getResultList();
 				
 		PeopleDao.instance.closeConnections(em);
-		
+
 		if(measureType != null)
 		{
-			id = measureType.get(0).idMeasureType;
+			id = measureType.get(0);
 		}
 		
 		return id; 

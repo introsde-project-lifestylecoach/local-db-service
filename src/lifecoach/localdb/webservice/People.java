@@ -57,7 +57,7 @@ public interface People
     public List<Measure> readLastMeasure(@WebParam(name="personId") int pId);
     
     @WebMethod(operationName="readLastMeasureByType")
-    @WebResult(name="measureList") 
+    @WebResult(name="measure") 
     public Measure readLastMeasureByType(@WebParam(name="personId") int pId, @WebParam(name="measureTypeId") String typeMeasure);
     
     @WebMethod(operationName="readMeasure")
