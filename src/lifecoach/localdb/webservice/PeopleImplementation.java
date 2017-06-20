@@ -198,6 +198,12 @@ public class PeopleImplementation implements People
     /* Manage Goal */
     
     @Override
+    public List<Goal> getGoals(int pId) {
+    	System.out.println("Read persons " + pId + " goal list");
+    	return Goal.getAll();
+    }
+    
+    @Override
     public Goal readGoal(int pId, String measureType, int gId) {
         System.out.println("Reading Goal by pId = " + pId + ", mId = " + gId + ", type = " + measureType);
         List<Goal> p = Goal.getGoalByGidAndType(pId, gId, measureType);
@@ -267,9 +273,9 @@ public class PeopleImplementation implements People
         }
     }
 
-    public Goal getGoalByTitle(String title){
+    public Goal getGoalByTitle(int pId, String title){
 	System.out.println("Reading Goal by title = " + title);
-        Goal p = Goal.getGoalByTitle(title).get(0); //It should have only an element
+        Goal p = Goal.getGoalByTitle(pId, title).get(0); //It should have only an element
         if (p!=null) {
             System.out.println("---> Found Goal");
             System.out.println(p.getIdGoal() + " " + p.getValue());

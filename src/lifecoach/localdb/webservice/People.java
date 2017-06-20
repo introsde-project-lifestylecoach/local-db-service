@@ -86,6 +86,10 @@ public interface People
     
     /* Goal */
     
+    @WebMethod(operationName="getGoals")
+    @WebResult(name="goalList") 
+    public List<Goal> getGoals(@WebParam(name="personId") int pId);
+    
     @WebMethod(operationName="getGoalHistory")
     @WebResult(name="goalList") 
     public List<Goal> getGoal(@WebParam(name="personId") int pId, @WebParam(name="measureTypeId") String typeMeasure);
@@ -108,7 +112,7 @@ public interface People
     
     @WebMethod(operationName="getGoalByTitle")
     @WebResult(name="goal") 
-    public Goal getGoalByTitle(@WebParam(name="title") String title);
+    public Goal getGoalByTitle(@WebParam(name="personId") int pId, @WebParam(name="title") String title);
 
     /* GoalType */
     
