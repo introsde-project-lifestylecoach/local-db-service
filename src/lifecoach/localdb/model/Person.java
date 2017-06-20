@@ -37,9 +37,18 @@ public class Person implements Serializable
     // TODO: Use type Date
     // @Temporal(TemporalType.DATE)
     // @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-//    @Column(name="birthdate")
-//    //private Date birthdate; 
-//    private String birthdate;
+    @Column(name="birthdate")
+    //private Date birthdate; 
+    private String birthdate;
+    
+    @Column(name="sex")
+    private String sex;
+    
+    @Column(name="waist")
+    private float waist;
+    
+    @Column(name="hip")
+    private float hip;
     
     // MappedBy must be equal to the name of the attribute in Measure that maps this relation
     @OneToMany(mappedBy="person", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
@@ -69,23 +78,47 @@ public class Person implements Serializable
 		this.firstname = firstname;
 	}
 
-////	public String getBirthdate() {
-////		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-////		return df.format(this.birthdate);
-////	}
-//	
 //	public String getBirthdate() {
-//		return birthdate;
+//		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+//		return df.format(this.birthdate);
 //	}
-//
-////	public void setBirthdate(String birthdate) throws ParseException {
-////        DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
-////        this.birthdate = format.parse(birthdate);
-////	}
-//	
-//	public void setBirthdate(String birthdate) {
-//		this.birthdate = birthdate;
+	
+	public String getBirthdate() {
+		return birthdate;
+	}
+
+//	public void setBirthdate(String birthdate) throws ParseException {
+//        DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+//        this.birthdate = format.parse(birthdate);
 //	}
+	
+	public void setBirthdate(String birthdate) {
+		this.birthdate = birthdate;
+	}
+	
+	public String getSex() {
+		return firstname;
+	}
+
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
+	
+	public float getWaist() {
+		return waist;
+	}
+
+	public void setWaist(float waist) {
+		this.waist = waist;
+	}
+	
+	public float getHip() {
+		return hip;
+	}
+
+	public void setHip(float hip) {
+		this.hip = hip;
+	}
 	
 	// Inherit elements
 	@XmlElementWrapper(name = "healthProfile")
