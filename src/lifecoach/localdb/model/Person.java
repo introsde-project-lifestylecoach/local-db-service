@@ -97,7 +97,7 @@ public class Person implements Serializable
 	}
 	
 	public String getSex() {
-		return firstname;
+		return sex;
 	}
 
 	public void setSex(String sex) {
