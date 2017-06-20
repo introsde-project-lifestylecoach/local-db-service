@@ -56,6 +56,10 @@ public interface People
     @WebResult(name="measureList") 
     public List<Measure> readLastMeasure(@WebParam(name="personId") int pId);
     
+    @WebMethod(operationName="readLastMeasureByType")
+    @WebResult(name="measureList") 
+    public Measure readLastMeasureByType(@WebParam(name="personId") int pId, @WebParam(name="measureTypeId") String typeMeasure);
+    
     @WebMethod(operationName="readMeasure")
     @WebResult(name="measure") 
     public Measure readMeasure(@WebParam(name="personId") int pId, @WebParam(name="measureTypeId") String typeMeasure, @WebParam(name="measureId") int mId);
@@ -81,7 +85,11 @@ public interface People
     
     @WebMethod(operationName="readMeasureType")
     @WebResult(name="measureType") 
-    public MeasureType readMeasureType(@WebParam(name="goalId") int id);
+    public MeasureType readMeasureType(@WebParam(name="measureTypeId") int id);
+    
+    @WebMethod(operationName="getIdMeasureTypeByType")
+    @WebResult(name="idMeasureType") 
+    public int getIdMeasureTypeByType(@WebParam(name="type") String type);
     
     
     /* Goal */

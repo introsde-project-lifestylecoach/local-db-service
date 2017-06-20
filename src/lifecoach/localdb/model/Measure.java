@@ -134,6 +134,32 @@ public class Measure implements Serializable
 		PeopleDao.instance.closeConnections(em);
 		return measure;
 	}
+	
+	public static Measure getLastMeasureByType(int id, String type)
+	{
+		EntityManager em = PeopleDao.instance.createEntityManager();
+
+		List<Measure> measure = null;
+		Measure m = null;
+		
+		int idT = MeasureType.getIdMeasureTypeByType(type);
+				
+		String query = "SELECT mA FROM Measure mA WHERE mA.person.idPerson = " + id + " AND mA.measureType.idMeasureType = " + idT
+				+" AND mA.date = (SELECT MAX(mB.date) FROM Measure mB WHERE mB.person.idPerson = " + id + " AND mB.measureType.idMeasureType = " + idT + ")";
+		
+		// System.out.println(query);
+		
+		measure = em.createQuery(query, Measure.class).getResultList();	
+		
+		PeopleDao.instance.closeConnections(em);
+		
+		if(measure != null)
+		{
+			m = measure.get(0);
+		}
+		
+		return m;
+	}
 
 	// Database operations
 	public static Measure getMeasureById(int personId) {

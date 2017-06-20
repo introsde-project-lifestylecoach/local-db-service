@@ -102,6 +102,18 @@ public class PeopleImplementation implements People
         }
         return p;
     }
+    
+    @Override
+    public Measure readLastMeasureByType(int pId, String type) {
+    	System.out.println("Reading LastMeasure by pId = " + pId);
+        Measure p = Measure.getLastMeasureByType(pId, type);
+        if (p!=null) {
+            System.out.println("---> Found Measure with id " + p.getIdMeasure());
+        } else {
+            System.out.println("---> Didn't find any Measure");
+        }
+        return p;
+    }
 
     @Override
     public List<Measure> getMeasure(int pId, String measureType) {
@@ -184,6 +196,18 @@ public class PeopleImplementation implements People
             System.out.println("---> Found MeasureType by id = " + id + " => " + m.getType());
         } else {
             System.out.println("---> Didn't find any MeasureType with  id = " + id);
+        }
+        return m;
+    }
+    
+    @Override
+    public int getIdMeasureTypeByType(String type) {
+        System.out.println("Reading MeasureType by type = " + type);
+        int m = MeasureType.getIdMeasureTypeByType(type);
+        if (m!=0) {
+            System.out.println("---> Found MeasureType by type = " + type + " => id = " + m);
+        } else {
+            System.out.println("---> Didn't find any MeasureType with type = " + type);
         }
         return m;
     }
