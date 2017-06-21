@@ -135,11 +135,25 @@ public class Goal implements Serializable
 	}
 	
 	// Database operations
-	public static Goal getGoalById(int personId) {
+	public static Goal getGoalById(int goalId) {
         EntityManager em = PeopleDao.instance.createEntityManager();
-        Goal p = em.find(Goal.class, personId);
+        Goal p = em.find(Goal.class, goalId);
         PeopleDao.instance.closeConnections(em);
         return p;
+    }
+	
+	public static List<Goal> getGoalsById(int personId) {
+		EntityManager em = PeopleDao.instance.createEntityManager();
+		
+		String query = "SELECT g FROM Goal g WHERE g.person.idPerson = " + personId;
+				
+		// System.out.println(query);
+		
+		List<Goal> goal = em.createQuery(query, Goal.class).getResultList();
+				
+		PeopleDao.instance.closeConnections(em);
+		
+		return goal;
     }
 
 	public static List<Goal> getAll() {

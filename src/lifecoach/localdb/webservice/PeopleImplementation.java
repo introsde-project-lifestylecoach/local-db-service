@@ -224,7 +224,7 @@ public class PeopleImplementation implements People
     @Override
     public List<Goal> getGoals(int pId) {
     	System.out.println("Read persons " + pId + " goal list");
-    	return Goal.getAll();
+    	return Goal.getGoalsById(pId);
     }
     
     @Override
