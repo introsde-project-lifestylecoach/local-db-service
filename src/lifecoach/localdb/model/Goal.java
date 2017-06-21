@@ -214,7 +214,7 @@ public class Goal implements Serializable
 
 		EntityManager em = PeopleDao.instance.createEntityManager();
 		
-		String query = "SELECT g FROM Goal g WHERE g.title = \"" + title + "\" AND g.idPerson = " + pId + ")";
+		String query = "SELECT g FROM Goal g WHERE g.title = \"" + title + "\" AND g.person.idPerson = " + pId;
 				
 		// System.out.println(query);
 		
