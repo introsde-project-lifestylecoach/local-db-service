@@ -219,7 +219,7 @@ public class Goal implements Serializable
 		// System.out.println(query);
 		
 		List<Goal> goal = em.createQuery(query, Goal.class).getResultList();
-
+				
 		PeopleDao.instance.closeConnections(em);
 		return goal;
 	}

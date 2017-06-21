@@ -298,8 +298,12 @@ public class PeopleImplementation implements People
     }
 
     public Goal getGoalByTitle(int pId, String title){
-	System.out.println("Reading Goal by title = " + title);
-        Goal p = Goal.getGoalByTitle(pId, title).get(0); //It should have only an element
+    	System.out.println("Reading Goal by title = " + title);
+    	Goal p = null;
+    	List<Goal> gList = Goal.getGoalByTitle(pId, title);
+        if(!gList.isEmpty()) {
+        	p = gList.get(0); //It should have only an element
+        }
         if (p!=null) {
             System.out.println("---> Found Goal");
             System.out.println(p.getIdGoal() + " " + p.getValue());
