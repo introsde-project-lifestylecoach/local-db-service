@@ -153,7 +153,7 @@ public class Measure implements Serializable
 		
 		PeopleDao.instance.closeConnections(em);
 		
-		if(measure != null)
+		if(!measure.isEmpty())
 		{
 			m = measure.get(0);
 		}
