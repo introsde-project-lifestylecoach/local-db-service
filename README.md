@@ -2,10 +2,10 @@
 https://introsde-lifecoach-localdb.herokuapp.com/
 
 ## Deploy in Heroku 
->heroku login
->heroku create --stack cedar-14 --buildpack https://github.com/IntroSDE/heroku-buildpack-ant.git
->git push heroku master
->heroku open
+>heroku login<br />
+>heroku create --stack cedar-14 --buildpack https://github.com/IntroSDE/heroku-buildpack-ant.git<br />
+>git push heroku master<br />
+>heroku open<br />
 
 ## Tables
 ### User
