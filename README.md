@@ -1,7 +1,7 @@
 # local-db-service
 https://introsde-lifecoach-localdb.herokuapp.com/
 
-##Deploy in Heroku 
+## Deploy in Heroku 
 >heroku login
 >heroku create --stack cedar-14 --buildpack https://github.com/IntroSDE/heroku-buildpack-ant.git
 >git push heroku master
