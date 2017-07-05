@@ -1,11 +1,14 @@
 # local-db-service
-https://introsde-lifecoach-localdb.herokuapp.com/
+https://introsde-lifecoach-localdb.herokuapp.com/ws/people?wsdl
 
 ## Deploy in Heroku 
 >heroku login<br />
 >heroku create --stack cedar-14 --buildpack https://github.com/IntroSDE/heroku-buildpack-ant.git<br />
 >git push heroku master<br />
 >heroku open<br />
+>(Rename app)
+>git remote rm heroku
+>heroku git:remote -a introsde-lifecoach-localdb
 
 ## Tables
 ### User
