@@ -6,8 +6,8 @@ https://introsde-lifecoach-localdb.herokuapp.com/ws/people?wsdl
 >heroku create --stack cedar-14 --buildpack https://github.com/IntroSDE/heroku-buildpack-ant.git<br />
 >git push heroku master<br />
 >heroku open<br />
->(Rename app)
->git remote rm heroku
+>(Rename app)<br />
+>git remote rm heroku<br />
 >heroku git:remote -a introsde-lifecoach-localdb
 
 ## Tables
