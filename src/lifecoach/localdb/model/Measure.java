@@ -112,7 +112,8 @@ public class Measure implements Serializable
 			int idT = type.getIdMeasureType();
 				
 			String query = "SELECT mA FROM Measure mA WHERE mA.person.idPerson = " + id + " AND mA.measureType.idMeasureType = " + idT
-					+" AND mA.date = (SELECT MAX(mB.date) FROM Measure mB WHERE mB.person.idPerson = " + id + " AND mB.measureType.idMeasureType = " + idT + ")";
+					+" AND mA.date = (SELECT MAX(mB.date) FROM Measure mB WHERE mB.person.idPerson = " + id + " AND mB.measureType.idMeasureType = " + idT + ")"
+					+" AND mA.idMeasure = (SELECT MAX(mC.idMeasure) FROM Measure mC WHERE mC.person.idPerson = " + id + " AND mC.measureType.idMeasureType = " + idT + ")";
 			
 			// System.out.println(query);
 			
@@ -145,7 +146,8 @@ public class Measure implements Serializable
 		int idT = MeasureType.getIdMeasureTypeByType(type);
 				
 		String query = "SELECT mA FROM Measure mA WHERE mA.person.idPerson = " + id + " AND mA.measureType.idMeasureType = " + idT
-				+" AND mA.date = (SELECT MAX(mB.date) FROM Measure mB WHERE mB.person.idPerson = " + id + " AND mB.measureType.idMeasureType = " + idT + ")";
+				+" AND mA.date = (SELECT MAX(mB.date) FROM Measure mB WHERE mB.person.idPerson = " + id + " AND mB.measureType.idMeasureType = " + idT + ")"
+				+" AND mA.idMeasure = (SELECT MAX(mC.idMeasure) FROM Measure mC WHERE mC.person.idPerson = " + id + " AND mC.measureType.idMeasureType = " + idT + ")";
 		
 		// System.out.println(query);
 		
